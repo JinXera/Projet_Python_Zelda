@@ -22,7 +22,6 @@ class Level :
                 y = row_index * TILESIZE
                 if col == 'X':
                     Tile((x, y),[self.visible_sprites])
-                    print('ok')
 
 
     def run(self):
