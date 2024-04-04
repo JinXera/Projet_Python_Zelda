@@ -22,11 +22,13 @@ class Level :
                 y = row_index * TILESIZE
                 if col == 'X':
                     Tile((x, y),[self.visible_sprites])
+                if col == 'p':
+                    Player((x, y), [self.visible_sprites])
 
 
     def run(self):
         # update and draw the game
-        pass
+        self.visible_sprites.draw(self.display_surface)
 
 class YSortCameraGroup(pygame.sprite.Group):
     def __init__(self):
