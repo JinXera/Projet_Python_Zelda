@@ -10,7 +10,7 @@ class Level :
         self.display_surface = pygame.display.get_surface()
 
         # sprite group setup
-        self.visible_sprites = YSortCameraGroup()
+        self.visible_sprites = pygame.sprite.Group()
         self.obstacles_sprites = pygame.sprite.Group()
 
         # sprite setup
@@ -21,7 +21,8 @@ class Level :
                 x = col_index * TILESIZE
                 y = row_index * TILESIZE
                 if col == 'X':
-                    Tile((x,y),[self.visible_sprites])
+                    Tile((x, y),[self.visible_sprites])
+                    print('ok')
 
 
     def run(self):
