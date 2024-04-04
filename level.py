@@ -10,7 +10,7 @@ class Level :
         self.display_surface = pygame.display.get_surface()
 
         # sprite group setup
-        self.visible_sprites = pygame.sprite.Group()
+        self.visible_sprites = YSortCameraGroup()
         self.obstacles_sprites = pygame.sprite.Group()
 
         # sprite setup
@@ -27,3 +27,10 @@ class Level :
     def run(self):
         # update and draw the game
         pass
+
+class YSortCameraGroup(pygame.sprite.Group):
+    def __init__(self):
+
+        #general setup
+        super().__init__()
+        self.display_surface = pygame.display.get_surface()
