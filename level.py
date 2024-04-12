@@ -1,4 +1,6 @@
 import pygame
+
+#import player
 from settings import *
 from tile import Tile
 from player import Player
@@ -29,7 +31,7 @@ class Level :
 
     def run(self):
         # update and draw the game
-        self.visible_sprites.custom_draw()
+        self.visible_sprites.custom_draw(self.player)
         self.visible_sprites.update()
 
 
@@ -43,7 +45,7 @@ class YSortCameraGroup(pygame.sprite.Group):
         self.half_height = self.display_surface.get_size()[1] // 2
         self.offset = pygame.math.Vector2()
 
-    def custom_draw(self):
+    def custom_draw(self, player):
 
         #getting the offset
         self.offset.x = player.rect.centerx - self.half_width
