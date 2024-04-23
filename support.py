@@ -11,13 +11,13 @@ def import_csv_layout(path):
              terrain_map.append(list(row))
 
 
-#print(import_csv_layout('../map/map_FloorBlocks.csv'))
+print(import_csv_layout('../map/map_FloorBlocks.csv'))
 
 def import_folder(path):
     surface_list = []
 
 
-    for _,__,img_files in walk(path)
+    for _,__,img_files in walk(path):
         for image in img_files:
             full_path = path + '/' + image
             image_surf = pygame.image.load(full_path).convert_alpha()

@@ -4,6 +4,16 @@ HEIGHT    = 720
 FPS       = 60
 TILESIZE  = 64
 
+#weapons
+
+weapon_data = {
+    'sword': {'cooldown': 100, 'damage': 15, 'graphic':'../Projet_Python_Zelda/graphics/weapons/sword/full.png'},
+    'lance': {'cooldown': 400, 'damage': 35, 'graphic': '../Projet_Python_Zelda/graphics/weapons/lance/full.png'},
+    'axe': {'cooldown': 300, 'damage': 25, 'graphic': '../Projet_Python_Zelda/graphics/weapons/axe/full.png'},
+    'rapier': {'cooldown': 50, 'damage': 8, 'graphic': '../Projet_Python_Zelda/graphics/weapons/rapier/full.png'},
+    'sai': {'cooldown': 80, 'damage': 10, 'graphic': '../Projet_Python_Zelda/graphics/weapons/sai/full.png'},
+}
+
 WORLD_MAP = [
 ['X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X'],
 ['X',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','X'],
