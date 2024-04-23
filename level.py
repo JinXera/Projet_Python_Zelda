@@ -1,5 +1,6 @@
 import pygame
-from support import import_csv_layout, import_folder
+from random import choice
+from support import *
 from settings import *
 from tile import Tile
 from player import Player
@@ -19,18 +20,18 @@ class Level :
         self.create_map()
     def create_map(self):
         layout = {
-            'boundary': import_csv_layout('../map/map_FloorBlocks.csv'),
-            'grass': import_csv_layout('../map/map_Grass.csv'),
-            'object': import_csv_layout('../map/map_Objects.csv'),
+            'boundary': import_csv_layout('../Projet_Python_Zelda/map/map_FloorBlocks.csv'),
+            'grass': import_csv_layout('../Projet_Python_Zelda/map/map_Grass.csv'),
+            'object': import_csv_layout('../Projet_Python_Zelda/map/map_Objects.csv'),
         }
 
         graphics = {
-            'grass': import_folder('../graphics/Grass'),
-            'objects': import_folder('../graphics/objects')
+            'grass': import_folder('../Projet_Python_Zelda/graphics/Grass'),
+            'objects': import_folder('../Projet_Python_Zelda/graphics/objects')
         }
 
         for style, layout in layout.items():
-            for row_index,row in enumerate(layout):
+            for row_index, row in enumerate(layout):
                 for col_index, col in enumerate(row):
                     if col != '-1' :
                         x = col_index * TILESIZE
@@ -69,7 +70,7 @@ class YSortCameraGroup(pygame.sprite.Group):
         self.offset = pygame.math.Vector2()
 
         #creating the floor
-        self.floor_surf = pygame.image.load('../Projet_Python_Zelda/Graphics/tilemap/ground.png').convert()
+        self.floor_surf = pygame.image.load('../Projet_Python_Zelda/graphics/tilemap/ground.png').convert()
         self.floor_rect = self.floor_surf.get_rect(topleft = (0, 0))
 
     def custom_draw(self, player):

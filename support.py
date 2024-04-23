@@ -9,19 +9,19 @@ def import_csv_layout(path):
         layout = reader(level_map, delimiter = ',')
         for row in layout:
              terrain_map.append(list(row))
+        return terrain_map
 
 
-print(import_csv_layout('../map/map_FloorBlocks.csv'))
+#print(import_csv_layout('../Projet_Python_Zelda/map/map_FloorBlocks.csv'))
 
 def import_folder(path):
     surface_list = []
-
 
     for _,__,img_files in walk(path):
         for image in img_files:
             full_path = path + '/' + image
             image_surf = pygame.image.load(full_path).convert_alpha()
-
+            surface_list.append(image_surf)
     return surface_list
 
 #    images = []
@@ -32,4 +32,4 @@ def import_folder(path):
 #            images.append(image)
 #    return images
 
-import_folder('../graphics/Grass')
+#print(import_folder('../Projet_Python_Zelda/graphics/Grass'))
