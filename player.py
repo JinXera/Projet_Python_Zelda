@@ -1,8 +1,9 @@
 import pygame
 from settings import *
 from support import import_folder
+
 class Player(pygame.sprite.Sprite):
-    def __init__(self, pos, groups, obstacle_sprites):
+    def __init__(self, pos, groups, obstacle_sprites, create_attack, destroy_attack):
         super().__init__(groups)
         self.image = pygame.image.load('../Projet_Python_Zelda/graphics/test/player.png').convert_alpha()
         self.rect = self.image.get_rect(topleft = pos)
@@ -20,8 +21,16 @@ class Player(pygame.sprite.Sprite):
         self.attacking = False
         self.attack_cooldown = 400
         self.attack_time = None
-
         self.obstacle_sprites = obstacle_sprites
+
+        # weapon
+        self.create_attack = create_attack
+        self.destroy_attack = destroy_attack
+        self.weapon_index = 0
+        self.weapon = list(weapon_data.keys())[self.weapon_index]
+        self.can_switch_weapon = True
+        self.weapons_switch_time =None
+        self.switch_duration_cooldown = 200
 
     def import_player_assets(self):
         character_path = '../Projet_Python_Zelda/graphics/player/'
@@ -32,7 +41,6 @@ class Player(pygame.sprite.Sprite):
         for animation in self.animations.keys():
             full_path = character_path + animation
             self.animations[animation] = import_folder(full_path)
-
 
     def input(self):
         if not self.attacking:
@@ -61,13 +69,24 @@ class Player(pygame.sprite.Sprite):
             if keys[pygame.K_SPACE]: # à changer avec le clic gauche de la souris
                 self.attacking = True
                 self.attack_time = pygame.time.get_ticks()
-                print('attack')
+                self.create_attack()
 
             # magic input
             if keys[pygame.K_LCTRL]: # à changer avec le clic droit de la souris
                 self.attacking = True
                 self.attack_time = pygame.time.get_ticks()
                 print('magic')
+
+            if keys[pygame.K_LSHIFT] and self.can_switch_weapon:
+                self.can_switch_weapon = False
+                self.weapons_switch_time = pygame.time.get_ticks()
+
+                if self.weapon_index < len(list(weapon_data.keys())) - 1:
+                    self.weapon_index += 1
+                else:
+                    self.weapon_index = 0
+
+                self.weapon = list(weapon_data.keys())[self.weapon_index]
 
     def get_status(self):
         # idle status
@@ -121,6 +140,11 @@ class Player(pygame.sprite.Sprite):
         if self.attacking:
             if current_time - self.attack_time >= self.attack_cooldown:
                 self.attacking = False
+                self.destroy_attack()
+
+        if not self.can_switch_weapon:
+            if current_time - self.weapons_switch_time >= self.switch_duration_cooldown:
+                self.can_switch_weapon = True
 
     def animate(self):
         animation = self.animations[self.status]
