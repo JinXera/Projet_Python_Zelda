@@ -1,5 +1,6 @@
 import pygame
 from random import choice
+from particle import AnimationPlayer
 from support import *
 from settings import *
 from tile import Tile
@@ -8,6 +9,7 @@ from debug import debug
 from weapon import Weapon
 from ui import UI
 from enemy import Enemy
+
 
 
 class Level :
@@ -28,6 +30,9 @@ class Level :
 
         # user interface
         self.ui = UI()
+
+        # particles
+        self.animation_player = AnimationPlayer()
 
     def create_map(self):
         layout = {
