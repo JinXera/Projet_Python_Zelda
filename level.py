@@ -12,8 +12,7 @@ from enemy import Enemy
 from magic import MagicPlayer
 
 
-
-class Level :
+class Level:
     def __init__(self):
 
         # get the display surface
@@ -52,20 +51,20 @@ class Level :
         for style, layout in layout.items():
             for row_index, row in enumerate(layout):
                 for col_index, col in enumerate(row):
-                    if col != '-1' :
+                    if col != '-1':
                         x = col_index * TILESIZE
                         y = row_index * TILESIZE
                         if style == 'boundary':
-                            Tile((x,y), [self.obstacle_sprites], 'invisible')
+                            Tile((x, y), [self.obstacle_sprites], 'invisible')
                         if style == 'grass':
                             # create a grass tile
                             random_grass_image = choice(graphics['grass'])
-                            Tile((x,y), [self.visible_sprites, self.obstacle_sprites], 'grass', random_grass_image)
+                            Tile((x, y), [self.visible_sprites, self.obstacle_sprites], 'grass', random_grass_image)
 
                         if style == 'object':
                             # create an object tile
                             surf = graphics['objects'][int(col)]
-                            Tile((x,y), [self.visible_sprites, self.obstacle_sprites], 'object', surf)
+                            Tile((x, y), [self.visible_sprites, self.obstacle_sprites], 'object', surf)
 
                         if style == 'entities':
                             if col == '394':
@@ -77,10 +76,14 @@ class Level :
                                     self.destroy_attack,
                                     self.create_magic)
                             else:
-                                Enemy('squid', (x, y), [self.visible_sprites])
+                                if col == '390': monster_name = 'bamboo'
+                                elif col == '391': monster_name = 'spirit'
+                                elif col == '392': monster_name = 'raccoon'
+                                else: monster_name = 'squid'
+                                Enemy(monster_name, (x, y), [self.visible_sprites], self.obstacle_sprites)
 
     def create_attack(self):
-        self.current_attack = Weapon(self.player,[self.visible_sprites])
+        self.current_attack = Weapon(self.player, [self.visible_sprites])
 
     def create_magic(self, style, strength, cost):
         if style == 'heal':
@@ -98,36 +101,40 @@ class Level :
         # update and draw the game
         self.visible_sprites.custom_draw(self.player)
         self.visible_sprites.update()
+        self.visible_sprites.enemy_update(self.player)
         self.ui.display(self.player)
-
-
 
 
 class YSortCameraGroup(pygame.sprite.Group):
     def __init__(self):
 
-        #general setup
+        # general setup
         super().__init__()
         self.display_surface = pygame.display.get_surface()
         self.half_width = self.display_surface.get_size()[0] // 2
         self.half_height = self.display_surface.get_size()[1] // 2
         self.offset = pygame.math.Vector2()
 
-        #creating the floor
+        # creating the floor
         self.floor_surf = pygame.image.load('../Projet_Python_Zelda/graphics/tilemap/ground.png').convert()
-        self.floor_rect = self.floor_surf.get_rect(topleft = (0, 0))
+        self.floor_rect = self.floor_surf.get_rect(topleft=(0, 0))
 
     def custom_draw(self, player):
 
-        #getting the offset
+        # getting the offset
         self.offset.x = player.rect.centerx - self.half_width
         self.offset.y = player.rect.centery - self.half_height
 
-        #drawing the floor
+        # drawing the floor
         floor_offset_pos = self.floor_rect.topleft - self.offset
         self.display_surface.blit(self.floor_surf, floor_offset_pos)
 
-          #for sprite in self.sprites():
-        for sprite in sorted(self.sprites(), key = lambda sprite: sprite.rect.centery):
+        # for sprite in self.sprites():
+        for sprite in sorted(self.sprites(), key=lambda sprite: sprite.rect.centery):
             offset_pos = sprite.rect.topleft - self.offset
             self.display_surface.blit(sprite.image, offset_pos)
+
+    def enemy_update(self, player):
+        enemy_sprites = [sprite for sprite in self.sprites() if hasattr(sprite, 'sprite_type') and sprite.sprite_type == 'enemy']
+        for enemy in enemy_sprites:
+            enemy.enemy_update(player)
