@@ -19,7 +19,7 @@ class AnimationPlayer:
 
             # monster deaths
             'squid': import_folder('../Projet_Python_Zelda/graphics/particles/smoke_orange'),
-            'racoon': import_folder('../Projet_Python_Zelda/graphics/particles/raccoon'),
+            'raccoon': import_folder('../Projet_Python_Zelda/graphics/particles/raccoon'),
             'spirit': import_folder('../Projet_Python_Zelda/graphics/particles/nova'),
             'bamboo': import_folder('../Projet_Python_Zelda/graphics/particles/bamboo'),
 
@@ -40,7 +40,7 @@ class AnimationPlayer:
             )
         }
 
-    def  reflect_images(self, frames):
+    def reflect_images(self, frames):
         new_frames = []
 
         for frame in frames:
@@ -59,14 +59,16 @@ class AnimationPlayer:
 class ParticleEffect(pygame.sprite.Sprite):
     def __init__(self, pos, animation_frames, groups):
         super().__init__(groups)
+        self.sprite_type = 'magic'
         self.frame_index = 0
         self.animation_speed = 0.15
         self.frames = animation_frames
-        self.image = self.image.get_rect[self.frame_index]
+        self.image = self.frames[self.frame_index]
+        self.rect = self.image.get_rect(center = pos)
 
     def animate(self):
         self.frame_index += self.animation_speed
-        if self.frames >= len(self.frames):
+        if self.frame_index >= len(self.frames):
             self.kill()
         else:
             self.image = self.frames[int(self.frame_index)]
