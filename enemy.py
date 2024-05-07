@@ -68,8 +68,8 @@ class Enemy(Entity):
         if distance <= self.attack_radius and self.can_attack:
             if self.status != 'attack':
                 self.frame_index = 0
-            self.status = 'attack'
-        if distance <= self.notice_radius:
+                self.status = 'attack'
+        elif distance <= self.notice_radius and distance > self.attack_radius:
             self.status = 'move'
         else:
             self.status = 'idle'
@@ -91,6 +91,7 @@ class Enemy(Entity):
             if self.status == 'attack':
                 self.can_attack = False
             self.frame_index = 0
+
 
         self.image = animation[int(self.frame_index)]
         self.rect = self.image.get_rect(center=self.hitbox.center)

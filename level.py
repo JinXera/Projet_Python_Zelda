@@ -127,6 +127,9 @@ class Level:
             print(self.player.health)
             # spawn particles
 
+    def add_xp(self, amount):
+        self.player.exp += amount
+
     def run(self):
         # update and draw the game
         self.visible_sprites.custom_draw(self.player)
