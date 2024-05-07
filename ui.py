@@ -26,7 +26,7 @@ class UI:
             magic = pygame.image.load(path).convert_alpha()
             self.magic_graphics.append(magic)
 
-    def show_bar(self,current,max_amount,bg_rect,color):
+    def show_bar(self, current, max_amount, bg_rect, color):
         # draw bg
         pygame.draw.rect(self.display_surface, UI_BG_COLOR, bg_rect)
 
@@ -75,7 +75,7 @@ class UI:
 
     def display(self, player):
         self.show_bar(player.health, player.stats['health'], self.health_bar_rect, HEALTH_COLOR)
-        self.show_bar(player.health, player.stats['energy'], self.energy_bar_rect, ENERGY_COLOR)
+        self.show_bar(player.energy, player.stats['energy'], self.energy_bar_rect, ENERGY_COLOR)
 
         self.show_exp(player.exp)
 
