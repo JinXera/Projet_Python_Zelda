@@ -23,9 +23,13 @@ HEALTH_COLOR = 'red'
 ENERGY_COLOR = 'blue'
 UI_BORDER_COLOR_ACTIVE = 'gold'
 
+# upgrade menu
+TEXT_COLOR_SELECTED = '#111111'
+BAR_COLOR = '#EEEEEE'
+BAR_COLOR_SELECTED = '#111111'
+UPGRADE_BG_COLOR_SELECTED = '#EEEEEE'
 
 # weapons
-
 weapon_data = {
     'sword': {'cooldown': 100, 'damage': 15, 'graphic': '../Projet_Python_Zelda/graphics/weapons/sword/full.png'},
     'lance': {'cooldown': 400, 'damage': 35, 'graphic': '../Projet_Python_Zelda/graphics/weapons/lance/full.png'},
@@ -33,7 +37,6 @@ weapon_data = {
     'rapier': {'cooldown': 50, 'damage': 8, 'graphic': '../Projet_Python_Zelda/graphics/weapons/rapier/full.png'},
     'sai': {'cooldown': 80, 'damage': 10, 'graphic': '../Projet_Python_Zelda/graphics/weapons/sai/full.png'},
 }
-
 
 #enemy
 monster_data = {
@@ -50,8 +53,6 @@ magic_data = {
     'flame':{'strength': 5, 'cost': 20, 'graphic': '../Projet_Python_Zelda/graphics/particles/flame/fire.png'},
     'heal': {'strength': 20, 'cost': 10, 'graphic': '../Projet_Python_Zelda/graphics/particles/heal/heal.png'}
 }
-
-
 
 WORLD_MAP = [
 ['X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X','X'],
