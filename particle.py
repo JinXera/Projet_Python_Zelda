@@ -11,7 +11,7 @@ class AnimationPlayer:
             'heal': import_folder('../Projet_Python_Zelda/graphics/particles/heal/frames'),
 
             # attacks
-            'claws': import_folder('../Projet_Python_Zelda/graphics/particles/claws'),
+            'claw': import_folder('../Projet_Python_Zelda/graphics/particles/claw'),
             'slash': import_folder('../Projet_Python_Zelda/graphics/particles/slash'),
             'sparkle': import_folder('../Projet_Python_Zelda/graphics/particles/sparkle'),
             'leaf_attack': import_folder('../Projet_Python_Zelda/graphics/particles/leaf_attack'),
