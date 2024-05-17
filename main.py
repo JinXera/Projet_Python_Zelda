@@ -26,7 +26,10 @@ class Game:
                     sys.exit()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_m:
+                        # self.level.upgrade_menu = True
                         self.level.toggle_menu()
+                    # elif event.key == pygame.K_ESCAPE:
+                      #  self.level.toggle_game_menu()
 
             self.screen.fill(WATER_COLOR)
             self.level.run()

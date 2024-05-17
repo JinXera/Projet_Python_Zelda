@@ -53,7 +53,9 @@ class Player(Entity):
 
         # import a sound
         self.weapon_attack_sound = pygame.mixer.Sound('../Projet_Python_Zelda/audio/sword.wav')
+        self.death_sound = pygame.mixer.Sound('../Projet_Python_Zelda/audio/death.wav')
         self.weapon_attack_sound.set_volume(0.2)
+        self.death_sound.set_volume(0.2)
 
     def import_player_assets(self):
         character_path = '../Projet_Python_Zelda/graphics/player/'

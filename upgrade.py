@@ -30,6 +30,7 @@ class Upgrade:
                 self.selection_index += 1
                 self.can_move = False
                 self.selection_time = pygame.time.get_ticks()
+
             elif keys[pygame.K_q] and self.selection_index >= 1:
                 self.selection_index -= 1
                 self.can_move = False
@@ -58,9 +59,8 @@ class Upgrade:
             # vertical position
             top = self.display_surface.get_size()[1] * 0.1
 
-
             # create the object
-            item= Item(left, top, self.width, self.height, index, self.font)
+            item = Item(left, top, self.width, self.height, index, self.font)
             self.item_list.append(item)
 
     def display(self):

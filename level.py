@@ -11,6 +11,7 @@ from ui import UI
 from enemy import Enemy
 from magic import MagicPlayer
 from upgrade import Upgrade
+from menu import Menu
 
 
 class Level:
@@ -35,10 +36,21 @@ class Level:
         # user interface
         self.ui = UI()
         self.upgrade = Upgrade(self.player)
+        #self.menu = Menu(self.player)
 
         # particles
         self.animation_player = AnimationPlayer()
         self.magic_player = MagicPlayer(self.animation_player)
+
+        self.death_sound = pygame.mixer.Sound('../Projet_Python_Zelda/audio/death.wav')
+        self.death_sound.set_volume(0.2)
+
+        # upgrade menu
+        self.upgrade_menu = False
+
+        # game menu
+        # self.game_menu = False
+
 
     def create_map(self):
         layout = {
@@ -143,6 +155,11 @@ class Level:
         self.player.exp += amount
 
     def toggle_menu(self):
+        self.upgrade_menu = not self.upgrade_menu
+        self.game_paused = not self.game_paused
+
+    def toggle_game_menu(self):
+        self.game_menu = not self.game_menu
         self.game_paused = not self.game_paused
 
     def run(self):
@@ -150,8 +167,13 @@ class Level:
         self.ui.display(self.player)
 
         if self.game_paused:
-            self.upgrade.display()
-            # display upgrade menu
+            if self.upgrade_menu:
+                self.upgrade.display()
+                # display upgrade menu
+            # elif self.game_menu:
+             #    self.menu.display()
+                # display game menu
+
         else:
             self.visible_sprites.update()
             self.visible_sprites.enemy_update(self.player)
@@ -190,3 +212,4 @@ class YSortCameraGroup(pygame.sprite.Group):
         enemy_sprites = [sprite for sprite in self.sprites() if hasattr(sprite, 'sprite_type') and sprite.sprite_type == 'enemy']
         for enemy in enemy_sprites:
             enemy.enemy_update(player)
+

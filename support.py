@@ -11,9 +11,6 @@ def import_csv_layout(path):
              terrain_map.append(list(row))
         return terrain_map
 
-
-#print(import_csv_layout('../Projet_Python_Zelda/map/map_FloorBlocks.csv'))
-
 def import_folder(path):
     surface_list = []
 
@@ -24,12 +21,3 @@ def import_folder(path):
             surface_list.append(image_surf)
     return surface_list
 
-#    images = []
-#    for file_name in os.listdir(folder_path):
-#        file_path = os.path.join(folder_path, file_name)
-#        if os.path.isfile(file_path) and file_name.lower().endswith(('.png', '.jpg', '.jpeg')):
-#            image = pygame.image.load(file_path).convert_alpha()
-#            images.append(image)
-#    return images
-
-#print(import_folder('../Projet_Python_Zelda/graphics/Grass'))
