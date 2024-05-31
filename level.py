@@ -12,6 +12,7 @@ from enemy import Enemy
 from magic import MagicPlayer
 from upgrade import Upgrade
 from menu import Menu
+from paused_menu import PauseMenu
 
 
 class Level:
@@ -47,9 +48,12 @@ class Level:
 
         # upgrade menu
         self.upgrade_menu = False
+        self.open_upgrade_menu = False
+        self.open_pause_menu = False
 
-        # game menu
+        # paused menu
         # self.game_menu = False
+        self.pause_menu = PauseMenu()
 
 
     def create_map(self):
@@ -155,12 +159,15 @@ class Level:
         self.player.exp += amount
 
     def toggle_menu(self):
-        self.upgrade_menu = not self.upgrade_menu
-        self.game_paused = not self.game_paused
+        if self.open_upgrade_menu:
+            self.upgrade_menu = not self.upgrade_menu
+            self.game_paused = not self.game_paused
 
     def toggle_game_menu(self):
-        self.game_menu = not self.game_menu
-        self.game_paused = not self.game_paused
+        if self.open_pause_menu:
+            # self.game_menu = not self.game_menu
+            self.game_paused = not self.game_paused
+            self.pause_menu = not self.pause_menu
 
     def run(self):
         self.visible_sprites.custom_draw(self.player)
@@ -169,15 +176,28 @@ class Level:
         if self.game_paused:
             if self.upgrade_menu:
                 self.upgrade.display()
+
+            if self.pause_menu:
+               # self.pause_menu.display()
+                pass
+
+
+            # if self.upgrade_menu:
+                # self.upgrade.display()
                 # display upgrade menu
-            # elif self.game_menu:
-             #    self.menu.display()
-                # display game menu
+
+            # elif self.pause_menu:
+                 # self.pause_menu.display()
+                # display pause menu
 
         else:
             self.visible_sprites.update()
             self.visible_sprites.enemy_update(self.player)
             self.player_attack_logic()
+            self.upgrade_menu = False
+            self.pause_menu = False
+            self.open_upgrade_menu = False
+            self.open_pause_menu = False
 
 class YSortCameraGroup(pygame.sprite.Group):
     def __init__(self):

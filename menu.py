@@ -6,8 +6,8 @@ class Menu:
         pass
         # general setup
         self.display.get_surface = pygame.display.get_surface
-        self.menu_attribute_nr = 3
-        self.menu_attribute_name = list(['Continue', 'Retry', 'Quit'])
+        self.menu_attribute_name = ['Continue', 'Retry', 'Quit']
+        self.menu_attribute_current_option = 0
 
         # selection system
         self.menu_open = False

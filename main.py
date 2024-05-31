@@ -14,7 +14,7 @@ class Game:
         self.level = Level()
 
         # sound
-        main_sound = pygame.mixer.Sound('../Projet_Python_Zelda/audio/main.ogg')
+        main_sound = pygame.mixer.Sound('./audio/main.ogg')
         main_sound.set_volume(0.5)
         main_sound.play(loops = -1)
 
@@ -26,12 +26,20 @@ class Game:
                     sys.exit()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_m:
+                        if self.level.open_pause_menu :
+                            pass
+                        else:
                         # self.level.upgrade_menu = True
-                        self.level.toggle_menu()
-                    # elif event.key == pygame.K_ESCAPE:
-                      #  self.level.toggle_game_menu()
+                            self.level.open_upgrade_menu = True
+                            self.level.toggle_menu()
+                    elif event.key == pygame.K_ESCAPE:
+                        if self.level.open_upgrade_menu :
+                            pass
+                        else:
+                            self.level.open_pause_menu = True
+                            self.level.toggle_game_menu()
+                            self.level.open_upgrade_menu = False
 
-            self.screen.fill(WATER_COLOR)
             self.level.run()
             pygame.display.update()
             self.clock.tick(FPS)
