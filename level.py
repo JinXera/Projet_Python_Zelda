@@ -14,7 +14,6 @@ from upgrade import Upgrade
 from menu import Menu
 from paused_menu import PauseMenu
 
-
 class Level:
     def __init__(self):
 
@@ -37,6 +36,7 @@ class Level:
         # user interface
         self.ui = UI()
         self.upgrade = Upgrade(self.player)
+        #self.paused_menu = PauseMenu(self)
         #self.menu = Menu(self.player)
 
         # particles
@@ -53,8 +53,7 @@ class Level:
 
         # paused menu
         # self.game_menu = False
-        self.pause_menu = PauseMenu()
-
+        self.paused_menu = PauseMenu()
 
     def create_map(self):
         layout = {
@@ -169,25 +168,18 @@ class Level:
             self.game_paused = not self.game_paused
             self.pause_menu = not self.pause_menu
 
-    def run(self):
+    def run(self, game):
         self.visible_sprites.custom_draw(self.player)
         self.ui.display(self.player)
 
         if self.game_paused:
             if self.upgrade_menu:
                 self.upgrade.display()
-
-            if self.pause_menu:
-               # self.pause_menu.display()
-                pass
-
-
-            # if self.upgrade_menu:
-                # self.upgrade.display()
                 # display upgrade menu
 
-            # elif self.pause_menu:
-                 # self.pause_menu.display()
+            elif self.pause_menu:
+                self.paused_menu.display(self, game)
+                #pass
                 # display pause menu
 
         else:
