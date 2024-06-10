@@ -13,6 +13,7 @@ from magic import MagicPlayer
 from upgrade import Upgrade
 from menu import Menu
 from paused_menu import PauseMenu
+from death_menu import DeathMenu
 
 class Level:
     def __init__(self):
@@ -49,11 +50,15 @@ class Level:
         # upgrade menu
         self.upgrade_menu = False
         self.open_upgrade_menu = False
-        self.open_pause_menu = False
 
         # paused menu
         # self.game_menu = False
         self.paused_menu = PauseMenu()
+        self.open_pause_menu = False
+
+        #death menu
+        self.death_menu = DeathMenu()
+        self.game_over = False
 
     def create_map(self):
         layout = {
@@ -143,13 +148,18 @@ class Level:
                         else:
                             target_sprite.get_damage(self.player, attack_sprite.sprite_type)
 
-    def damage_player(self, amount, attack_type):
+    def damage_player(self, amount, attack_type, game):
         if self.player.vulnerable:
             self.player.health -= amount
             self.player.vulnerable = False
             self.player.hurt_time = pygame.time.get_ticks()
             print(self.player.health)
             self.animation_player.create_particles(attack_type, self.player.rect.center, [self.visible_sprites])
+            if self.player.health <= 0:
+                self.player.death_sound.play()
+                self.player.kill()
+                self.game_over = True
+                self.game_paused = True
 
     def trigger_death_particles(self, pos, particle_type):
         self.animation_player.create_particles(particle_type, pos, [self.visible_sprites])
@@ -158,12 +168,12 @@ class Level:
         self.player.exp += amount
 
     def toggle_menu(self):
-        if self.open_upgrade_menu:
+        if self.open_upgrade_menu & self.game_over == False:
             self.upgrade_menu = not self.upgrade_menu
             self.game_paused = not self.game_paused
 
     def toggle_game_menu(self):
-        if self.open_pause_menu:
+        if self.open_pause_menu & self.game_over == False:
             # self.game_menu = not self.game_menu
             self.game_paused = not self.game_paused
             self.pause_menu = not self.pause_menu
@@ -182,13 +192,18 @@ class Level:
                 #pass
                 # display pause menu
 
+            elif self.game_over:
+                self.death_menu.display(self, game)
+                #display death menu
+
         else:
             self.visible_sprites.update()
-            self.visible_sprites.enemy_update(self.player)
+            self.visible_sprites.enemy_update(self.player, game)
             self.player_attack_logic()
             self.upgrade_menu = False
             self.pause_menu = False
             self.open_upgrade_menu = False
+            self.open_pause_menu = False
             self.open_pause_menu = False
 
 class YSortCameraGroup(pygame.sprite.Group):
@@ -220,8 +235,8 @@ class YSortCameraGroup(pygame.sprite.Group):
             offset_pos = sprite.rect.topleft - self.offset
             self.display_surface.blit(sprite.image, offset_pos)
 
-    def enemy_update(self, player):
+    def enemy_update(self, player, game):
         enemy_sprites = [sprite for sprite in self.sprites() if hasattr(sprite, 'sprite_type') and sprite.sprite_type == 'enemy']
         for enemy in enemy_sprites:
-            enemy.enemy_update(player)
+            enemy.enemy_update(player, game)
 

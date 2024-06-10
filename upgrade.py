@@ -26,7 +26,7 @@ class Upgrade:
         keys = pygame.key.get_pressed()
 
         if self.can_move:
-            if keys[pygame.K_d] and self.selection_index < self.attribute_nr:
+            if keys[pygame.K_d] and self.selection_index < self.attribute_nr - 1:
                 self.selection_index += 1
                 self.can_move = False
                 self.selection_time = pygame.time.get_ticks()

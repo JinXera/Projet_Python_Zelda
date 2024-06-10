@@ -2,13 +2,13 @@ import pygame
 import sys
 from settings import *
 
-class PauseMenu:
+class DeathMenu:
     def __init__(self):
 
         # general setup
         self.display_surface = pygame.display.get_surface()
         self.font = pygame.font.Font(UI_FONT, UI_FONT_SIZE)
-        self.options = ["Continue", "Retry", "Quit"]
+        self.options = ["Retry", "Quit"]
         self.option_nr = len(self.options)
         self.option_names = list(self.options)
         self.font = pygame.font.Font(UI_FONT, UI_FONT_SIZE)
@@ -101,17 +101,13 @@ class Item:
 
 
     def trigger(self, level, game):
-        pause_option = level.paused_menu.options[self.index]
-        if pause_option == "Continue":
-            level.paused_menu.display(level, game)
-            level.game_paused = False
-
-        elif pause_option == "Retry":
-            level.paused_menu.display(level, game)
+        death_option = level.death_menu.options[self.index]
+        if death_option == "Retry":
+            level.death_menu.display(level, game)
             level.game_paused = False
             game.var_running = False
 
-        elif pause_option == "Quit":
+        elif death_option == "Quit":
             pygame.quit()
             sys.exit()
 

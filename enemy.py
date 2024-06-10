@@ -84,10 +84,10 @@ class Enemy(Entity):
         else:
             self.status = 'idle'
 
-    def actions(self, player):
+    def actions(self, player, game):
         if self.status == 'attack':
             self.attack_time = pygame.time.get_ticks()
-            self.damage_player(self.attack_damage, self.attack_type)
+            self.damage_player(self.attack_damage, self.attack_type, game)
             self.attack_sound.play()
         elif self.status == 'move':
             self.direction = self.get_player_distance_direction(player)[1]
@@ -155,6 +155,6 @@ class Enemy(Entity):
         self.cooldowns()
         self.check_death()
 
-    def enemy_update(self, player):
+    def enemy_update(self, player, game):
         self.get_status(player)
-        self.actions(player)
+        self.actions(player, game)

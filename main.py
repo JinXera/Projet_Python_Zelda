@@ -25,8 +25,6 @@ class Game:
 
 
     def run(self, game):
-        while True:
-            if game.var_running:
                 while game.var_running:
                     for event in pygame.event.get():
                         if event.type == pygame.QUIT:
@@ -46,13 +44,16 @@ class Game:
                                     self.level.open_pause_menu = True
                                     self.level.toggle_game_menu()
                                     self.level.open_upgrade_menu = False
-
+                        if game.var_running == False:
+                            pygame.quit()
                     self.level.run(game)
                     pygame.display.update()
                     self.clock.tick(FPS)
-            else:
-                game.var_running = True
+
 
 if __name__ == "__main__":
     game = Game()
-    game.run(game)
+    while True:
+        game.run(game)
+        game.__init__()
+        game.var_running = True

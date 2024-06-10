@@ -147,6 +147,7 @@ class Player(Entity):
             if 'attack' in self.status:
                 self.status = self.status.replace('_attack', '')
 
+
     def cooldowns(self):
         current_time = pygame.time.get_ticks()
         if self.attacking:
