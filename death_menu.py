@@ -24,7 +24,6 @@ class DeathMenu:
         self.selection_option_time = None
         self.can_move = True
 
-
         # Taille des éléments du menu
         self.menu_width = self.display_surface.get_width() // 3
         self.menu_height = self.display_surface.get_height() // len(self.options)
@@ -72,7 +71,6 @@ class DeathMenu:
             item = Item(left, top, self.width, self.height, index, self.font)
             self.item_list.append(item)
 
-
     def display(self, level, game):
         self.input(level, game)
         self.selection_cooldown()
@@ -98,7 +96,6 @@ class Item:
 
         # draw
         surface.blit(title_surface, title_rect)
-
 
     def trigger(self, level, game):
         death_option = level.death_menu.options[self.index]

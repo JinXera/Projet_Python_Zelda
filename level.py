@@ -1,4 +1,5 @@
 import pygame
+import time
 from random import choice, randint
 from particle import AnimationPlayer
 from support import *
@@ -14,6 +15,7 @@ from upgrade import Upgrade
 from menu import Menu
 from paused_menu import PauseMenu
 from death_menu import DeathMenu
+from game_over import GameOver
 
 class Level:
     def __init__(self):
@@ -56,9 +58,12 @@ class Level:
         self.paused_menu = PauseMenu()
         self.open_pause_menu = False
 
-        #death menu
+        # death menu
         self.death_menu = DeathMenu()
         self.game_over = False
+
+        # game over
+        self.game_over_info = GameOver()
 
     def create_map(self):
         layout = {
@@ -153,7 +158,7 @@ class Level:
             self.player.health -= amount
             self.player.vulnerable = False
             self.player.hurt_time = pygame.time.get_ticks()
-            print(self.player.health)
+            #print(self.player.health)
             self.animation_player.create_particles(attack_type, self.player.rect.center, [self.visible_sprites])
             if self.player.health <= 0:
                 self.player.death_sound.play()
@@ -193,6 +198,9 @@ class Level:
                 # display pause menu
 
             elif self.game_over:
+                time.sleep(0.5)
+                self.game_over_info.display()
+                time.sleep(3)
                 self.death_menu.display(self, game)
                 #display death menu
 
