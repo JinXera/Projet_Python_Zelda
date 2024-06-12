@@ -7,7 +7,6 @@ class DeathMenu:
 
         # general setup
         self.display_surface = pygame.display.get_surface()
-        self.font = pygame.font.Font(UI_FONT, UI_FONT_SIZE)
         self.options = ["Retry", "Quit"]
         self.option_nr = len(self.options)
         self.option_names = list(self.options)
@@ -65,7 +64,7 @@ class DeathMenu:
             left = (item * increment) + (increment - self.width) // 2
 
             # vertical position
-            top = self.display_surface.get_size()[1] * 0.3
+            top = self.display_surface.get_size()[1] * 0.5
 
             # create the object
             item = Item(left, top, self.width, self.height, index, self.font)
@@ -92,7 +91,7 @@ class Item:
 
         # title
         title_surface = self.font.render(name, False, color)
-        title_rect = title_surface.get_rect(midtop=self.rect.midtop + pygame.math.Vector2(0, 20))
+        title_rect = title_surface.get_rect(midtop=self.rect.midtop + pygame.math.Vector2(0, 25))
 
         # draw
         surface.blit(title_surface, title_rect)

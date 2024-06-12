@@ -198,9 +198,9 @@ class Level:
                 # display pause menu
 
             elif self.game_over:
-                time.sleep(0.5)
                 self.game_over_info.display()
-                time.sleep(3)
+                #time.sleep(1)
+                self.game_over_info.display()
                 self.death_menu.display(self, game)
                 #display death menu
 

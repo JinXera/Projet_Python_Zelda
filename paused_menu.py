@@ -7,7 +7,6 @@ class PauseMenu:
 
         # general setup
         self.display_surface = pygame.display.get_surface()
-        self.font = pygame.font.Font(UI_FONT, UI_FONT_SIZE)
         self.options = ["Continue", "Retry", "Quit"]
         self.option_nr = len(self.options)
         self.option_names = list(self.options)

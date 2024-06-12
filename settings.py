@@ -34,6 +34,9 @@ BAR_COLOR = '#EEEEEE'
 BAR_COLOR_SELECTED = '#111111'
 UPGRADE_BG_COLOR_SELECTED = '#EEEEEE'
 
+# game over color
+GAME_OVER_TEXT_COLOR = '#FF0000'
+
 # weapons
 weapon_data = {
     'sword': {'cooldown': 100, 'damage': 15, 'graphic': '../Projet_Python_Zelda/graphics/weapons/sword/full.png'},
