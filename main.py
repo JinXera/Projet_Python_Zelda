@@ -20,8 +20,9 @@ class Game:
 
         # sound
         main_sound = pygame.mixer.Sound('./audio/main.ogg')
-        main_sound.set_volume(0.5)
+        main_sound.set_volume(0.4)
         main_sound.play(loops = -1)
+        self.main_sound = main_sound
 
 
     def run(self, game):
@@ -55,5 +56,6 @@ if __name__ == "__main__":
     game = Game()
     while True:
         game.run(game)
+        game.main_sound.stop()
         game.__init__()
         game.var_running = True

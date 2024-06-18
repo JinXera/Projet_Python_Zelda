@@ -166,6 +166,7 @@ class Level:
                 self.player.kill()
                 self.game_over = True
                 self.game_paused = True
+                self.sound_played = False
 
     def trigger_death_particles(self, pos, particle_type):
         self.animation_player.create_particles(particle_type, pos, [self.visible_sprites])
@@ -198,7 +199,13 @@ class Level:
                 # display pause menu
 
             elif self.game_over:
+                game.main_sound.stop()
+                #pygame.time.wait(500)
                 self.game_over_info.display()
+                if self.sound_played == False:
+                    self.player_death_sound.play()
+                    self.sound_played = True
+                    pygame.time.wait(3000)
                 self.death_menu.display(self, game)
                 #display death menu
 
@@ -211,6 +218,8 @@ class Level:
             self.open_upgrade_menu = False
             self.open_pause_menu = False
             self.open_pause_menu = False
+            self.sound_played = False
+
 
 class YSortCameraGroup(pygame.sprite.Group):
     def __init__(self):
