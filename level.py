@@ -101,7 +101,7 @@ class Level:
                             # create an object tile
                             surf = graphics['objects'][int(col)]
                             Tile((x, y), [self.visible_sprites, self.obstacle_sprites], 'object', surf)
-                            if col=='13' : self.house.portal
+                            #if col=='13' : self.house.portal
 
                         if style == 'entities':
                             if col == '394':
