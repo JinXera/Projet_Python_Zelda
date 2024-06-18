@@ -2,6 +2,8 @@ import pygame
 import sys
 from settings import *
 from level import Level
+import pytmx
+import pyscroll
 
 
 
@@ -22,6 +24,15 @@ class Game:
         main_sound = pygame.mixer.Sound('./audio/main.ogg')
         main_sound.set_volume(0.5)
         main_sound.play(loops = -1)
+
+        # get home base map from tiled (tmx)
+        tmx_data = pytmx.util_pygame.load_pygame('./Graphics/tilemap/interior_grotto_zelda.tmx')
+        map_data = pyscroll.data.TiledMapData(tmx_data)
+        map_layer = pyscroll.orthographic.BufferedRenderer(map_data, self.screen.get_size())
+
+        # draw the layer group
+        self.group = pyscroll.PyscrollGroup(map_layer=map_layer, default_layer=2)
+
 
 
     def run(self, game):
