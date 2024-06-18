@@ -48,6 +48,8 @@ class Level:
 
         self.death_sound = pygame.mixer.Sound('../Projet_Python_Zelda/audio/death.wav')
         self.death_sound.set_volume(0.2)
+        self.player_death_sound = pygame.mixer.Sound('../Projet_Python_Zelda/audio/game_over.wav')
+        self.player_death_sound.set_volume(0.4)
 
         # upgrade menu
         self.upgrade_menu = False
@@ -158,7 +160,6 @@ class Level:
             self.player.health -= amount
             self.player.vulnerable = False
             self.player.hurt_time = pygame.time.get_ticks()
-            #print(self.player.health)
             self.animation_player.create_particles(attack_type, self.player.rect.center, [self.visible_sprites])
             if self.player.health <= 0:
                 self.player.death_sound.play()
@@ -194,12 +195,9 @@ class Level:
 
             elif self.pause_menu:
                 self.paused_menu.display(self, game)
-                #pass
                 # display pause menu
 
             elif self.game_over:
-                self.game_over_info.display()
-                #time.sleep(1)
                 self.game_over_info.display()
                 self.death_menu.display(self, game)
                 #display death menu

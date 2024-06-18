@@ -57,6 +57,7 @@ class Player(Entity):
         self.weapon_attack_sound.set_volume(0.2)
         self.death_sound.set_volume(0.2)
 
+
     def import_player_assets(self):
         character_path = '../Projet_Python_Zelda/graphics/player/'
         self.animations = {'up': [], 'down': [], 'left': [], 'right': [],
