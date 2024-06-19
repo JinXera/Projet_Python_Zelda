@@ -10,7 +10,11 @@ Controls (French keyboard):
 - E : change spell
 - Ctrl : Use current spell
 - M : open/close upgrade-menu
+   - Q,D : move left and right through the buttons
+   - spacebar : choose selected button
 - Esc : pause-menu
+   - Q,D : move left and right through the buttons
+   - spacebar : choose selected button
 
 
 Sources that helped with this project :
