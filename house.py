@@ -11,6 +11,13 @@ class Portal:
         # player interaction
         self.transport = False
 
+        self.register_map("main_map", portals=[
+            Portal(from_world="main_map", origin_point="enter_house", target_world="inside_house",
+                   teleport_point="spawn_house")
+        self.register_map("inside_house", portals=[
+            Portal(from_world="inside_house", origin_point="exit_house", target_world="main_map",
+                    teleport_point="respawn_outside")
+
     def get_player_distance_direction(self, player):
         portal_vec = pygame.math.Vector2(self.rect.center)
         player_vec = pygame.math.Vector2(player.rect.center)
